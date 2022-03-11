@@ -1,3 +1,4 @@
+-- We wil create a database calld hbb_dev_db and a user with privilage
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
 CREATE USER 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
  
