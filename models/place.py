@@ -43,6 +43,7 @@ class Place(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE", None) != "db":
         @property
         def reviews(self):
+          """ this will return the reviews which fountd in place"""
             import models
             review_list = []
             from models.review import Review
@@ -55,6 +56,7 @@ class Place(BaseModel, Base):
 
         @property
         def amenities(self):
+          """ this will return the aminities which fountd in place"""
             import models
             amenity_list = []
             from models.amenity import Amenity
@@ -65,6 +67,7 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, value):
+          """ this will return the amenities which fountd in place"""
             from models.amenity import Amenity
             if type(value) == Amenity:
                 self.amenity_ids.append(value.id)
