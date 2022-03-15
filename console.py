@@ -279,8 +279,13 @@ class HBNBCommand(cmd.Cmd):
                 except KeyError:
                     pass
                 print_list.append(v.to_dict)
-
-        print(print_list)
+        print("[", end="")
+        for x in print_list:
+            if x == print_list[-1]:
+                print(x, end="")
+            else:
+                print(x, end=", ")
+        print("]")
 
     def help_all(self):
         """ Help information for the all command """
