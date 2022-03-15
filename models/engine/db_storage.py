@@ -59,7 +59,10 @@ class DBStorage:
 
     def save(self):
         """commit all changes of the current database session"""
-        self.__session.commit()
+        try:
+            self.__session.commit()
+        except:
+            pass
 
     def delete(self, obj=None):
         """delete from the current database session obj if not None"""
@@ -67,12 +70,19 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        """reloads data from the database"""
-        from models.base_model import Base
+        """Create all tables in the database and initialize a new session."""
+        from models.base_model import Base, BaseModel
+        from models.amenity import Amenity
+        from models.city import City
+        from models.place import Place
+        from models.review import Review
+        from models.state import State
+        from models.user import User
         Base.metadata.create_all(self.__engine)
-        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(sess_factory)
-        self.__session = Session
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
+        Session = scoped_session(session_factory)
+        self.__session = Session()
 
     def close(self):
         """call remove() method on the private session attribute"""
