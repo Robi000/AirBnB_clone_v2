@@ -10,7 +10,8 @@ import os
 #     global fcheck
 #     fcheck = fcheck + 1
 #     print("checker no:", fcheck)
-
+"""this will pack webstatic ready for deploy 
+    """
 env.hosts = ['ubuntu@35.229.89.215', 'ubuntu@3.235.60.220']
 check = ''
 
