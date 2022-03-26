@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# this will update the new server to the requirments
 sudo apt -y update
 sudo apt install -y nginx
 sudo service nginx start
