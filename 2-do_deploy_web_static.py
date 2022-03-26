@@ -61,7 +61,7 @@ def tmp_file_handler(archive_path, file_name, release_name):
     x = 0
     if not server_work(file_name, release_name):
         return
-    sudo('rm -f /tmp/{}'.format(file_name))
+    run('sudo rm -f /tmp/{}'.format(file_name))
     check = 'scusses'
     if x == 1:
         return True
@@ -93,11 +93,11 @@ def server_work(file_name, release_name):
     tbsl = \
         '/data/web_static/releases/{}/web_static'.format(release_name)
     try:
-        sudo('mkdir -p /data/web_static/releases/{}'.format(release_name))
-        sudo('tar zxvf {} -C {}'.format(tfl, df))
-        sudo('mkdir -p /data/web_static')
-        sudo('rm -f /data/web_static/current')
-        sudo('ln -sf {} /data/web_static/current'.format(tbsl))
+        run('sudo mkdir -p /data/web_static/releases/{}'.format(release_name))
+        run('sudo tar zxvf {} -C {}'.format(tfl, df))
+        run('sudo mkdir -p /data/web_static')
+        run('sudo rm -f /data/web_static/current')
+        run('sudo ln -sf {} /data/web_static/current'.format(tbsl))
         return True
     except:
         return False
