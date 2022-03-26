@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from fabric.api import *
 
 packing = __import__('1-pack_web_static').do_pack
