@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 sudo apt -y update
 sudo apt install -y nginx
 sudo service nginx start
