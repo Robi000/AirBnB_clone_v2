@@ -16,6 +16,13 @@ check = ''
 
 
 def do_deploy(archive_path=None):
+    """here we will make sure put and remove temp files
+
+    Args:
+        archive_path (string): _description_
+        file_name (string): _description_
+        release_name (string): _description_
+    """
 
     if not os.path.exists(archive_path):
 
