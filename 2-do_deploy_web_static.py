@@ -1,5 +1,6 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+
 from tabnanny import check
 from fabric.api import *
 import os
@@ -17,7 +18,6 @@ check = ''
 
 def do_deploy(archive_path=None):
     """here we will make sure put and remove temp files
-
     Args:
         archive_path (string): _description_
         file_name (string): _description_
@@ -39,16 +39,19 @@ def do_deploy(archive_path=None):
 
     tmp_file_handler(archive_path, file_name, release_name)
     if check == 'scusses':
+
         # print('---------return true------------')
+
         return True
     else:
+
         # print('----------- not scuss-------')
+
         return False
 
 
 def tmp_file_handler(archive_path, file_name, release_name):
     """here we will make sure put and remove temp files
-
     Args:
         archive_path (string): _description_
         file_name (string): _description_
@@ -70,11 +73,9 @@ def tmp_file_handler(archive_path, file_name, release_name):
 
 def server_work(file_name, release_name):
     """here all server !done 
-
     Args:
         file_name (string): _description_
         release_name (string): _description_
-
     Returns:
         boolian: true if succided and false if not 
     """
