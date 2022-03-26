@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from fabric.api import *
-
+"""this will pack webstatic ready for deploy 
+    """
 packing = __import__('1-pack_web_static').do_pack
 to_server = __import__('2-do_deploy_web_static').do_deploy
 env.hosts = ['ubuntu@35.229.89.215', 'ubuntu@3.235.60.220']
