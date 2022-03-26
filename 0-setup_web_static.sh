@@ -1,21 +1,12 @@
 #!/usr/bin/env bash
-# this will update the new server to the requirments
-sudo apt -y update
-sudo apt install -y nginx
-sudo service nginx start
-sudo mkdir -p /data/web_static/releases/test/
-sudo mkdir -p /data/web_static/shared/
-sudo touch /data/web_static/releases/test/index.html
-sudo echo "<html>
-  <head>
-  </head>
-  <body>
-    ALX hbnb clone goes here...
-  </body>
-    </html>" | sudo tee -a /data/web_static/releases/test/index.html
+# sets up the web servers for the deployment of web_static
 
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y install nginx
+sudo mkdir -p /data/web_static/releases/test /data/web_static/shared
+echo "This is a test" | sudo tee /data/web_static/releases/test/index.html
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
-sudo chown -R ubuntu:ubuntu /data
-sudo sed -i 's/\# pass PHP scripts to FastCGI server/location \/hbnb_static\/ {\
-\n\t\talias \/data\/web_static\/current\/\;\n\t\tautoindex off\;\n\t}/' /etc/nginx/sites-available/default
-sudo service nginx reload
+sudo chown -hR ubuntu:ubuntu /data/
+sudo sed -i '38i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
+sudo service nginx start
