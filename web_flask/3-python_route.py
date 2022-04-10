@@ -21,6 +21,7 @@ def hbnb():
 
 @app.route('/c/<text>')
 def with_input(text):
+    """ this will show the database and give what asked """
     # show the subpath after /path/
     meh = ""
     for x in text:
