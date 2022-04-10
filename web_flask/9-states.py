@@ -17,6 +17,7 @@ app = Flask(__name__)
 
 @app.route('/states', strict_slashes=False)
 def state_listt():
+    """ this will show the database and give what asked """
     print(storage.all(State))
 
     x = storage.all(State)
@@ -31,6 +32,7 @@ def state_listt():
 
 
 @app.route('/states/<id>', strict_slashes=False)
+""" this will show the database and give what asked """
 def state_list(id):
     def state_city_finder(n):
         final = []
@@ -69,6 +71,7 @@ def state_list(id):
 
 @app.teardown_appcontext
 def session(exception):
+    """ this will show the database and give what asked """
     storage.close()
 
 
