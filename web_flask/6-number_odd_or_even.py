@@ -23,6 +23,7 @@ def hbnb():
 
 @app.route('/c/<text>')
 def with_input(text):
+    """ this will show the database and give what asked """
     # show the subpath after /path/
     meh = ""
     for x in text:
@@ -36,6 +37,7 @@ def with_input(text):
 @app.route('/python', strict_slashes=False)
 @app.route('/python/<text>')
 def either_or(text="is cool"):
+    """ this will show the database and give what asked """
     meh = ""
     for x in text:
         if x != '_':
@@ -47,16 +49,19 @@ def either_or(text="is cool"):
 
 @app.route('/number/<int:n>', strict_slashes=False)
 def int_or_not(n=None):
+    """ this will show the database and give what asked """
     return ("{} is a number".format(n))
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def render_index(n=None):
+    """ this will show the database and give what asked """
     return render_template('5-number.html', n=n)
 
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def even_or_odd(n=None):
+    """ this will show the database and give what asked """
     return render_template('6-number_odd_or_even.html', n=n)
 
 
