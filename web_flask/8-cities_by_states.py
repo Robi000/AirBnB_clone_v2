@@ -16,6 +16,7 @@ app = Flask(__name__)
 
 @app.route('/cities_by_states', strict_slashes=False)
 def cities_by_state():
+    """ this will show the database and give what asked """
     print(storage.all(State))
 
     x = storage.all(State)
@@ -59,6 +60,7 @@ def cities_by_state():
 
 @app.teardown_appcontext
 def session(exception):
+    """ this will show the database and give what asked """
     storage.close()
 
 
