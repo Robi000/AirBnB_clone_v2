@@ -1,103 +1,30 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
+"""
+Fabric script based on the file 1-pack_web_static.py that distributes an
+archive to the web servers
+"""
 
-from tabnanny import check
-from fabric.api import *
-import os
-
-# fcheck = 0
-
-# def check():
-#     global fcheck
-#     fcheck = fcheck + 1
-#     print("checker no:", fcheck)
-
-env.hosts = ['35.229.89.215', '3.235.60.220']
-check = ''
+from fabric.api import put, run, env
+from os.path import exists
+env.hosts = ['142.44.167.228', '144.217.246.195']
 
 
-def do_deploy(archive_path=None):
-    """here we will make sure put and remove temp files
-    Args:
-        archive_path (string): _description_
-        file_name (string): _description_
-        release_name (string): _description_
-    """
-
-    if not os.path.exists(archive_path):
-
-        # check()  # 1fcheck
-
+def do_deploy(archive_path):
+    """distributes an archive to the web servers"""
+    if exists(archive_path) is False:
         return False
-    release_name = archive_path[-29:-4]
-
-    # -> /mnt/c/repositeris/AirBnB_clone_v2/versions/web_static_20220326102222.tgz == web_static_20220326102222
-
-    file_name = archive_path[-29:]
-
-    # -> /mnt/c/repositeris/AirBnB_clone_v2/versions/web_static_20220326102222.tgz == web_static_20220326102222.tgz
-
-    tmp_file_handler(archive_path, file_name, release_name)
-    if check == 'scusses':
-
-        # print('---------return true------------')
-
-        return True
-    else:
-
-        # print('----------- not scuss-------')
-
-        return False
-
-
-def tmp_file_handler(archive_path, file_name, release_name):
-    """here we will make sure put and remove temp files
-    Args:
-        archive_path (string): _description_
-        file_name (string): _description_
-        release_name (string): _description_
-    """
-
-    global check
-    put(archive_path, '/tmp')
-    x = 0
-    if not server_work(file_name, release_name):
-        return
-    sudo('rm -f /tmp/{}'.format(file_name))
-    check = 'scusses'
-    if x == 1:
-        return True
-    else:
-        return False
-
-
-def server_work(file_name, release_name):
-    """here all server !done 
-    Args:
-        file_name (string): _description_
-        release_name (string): _description_
-    Returns:
-        boolian: true if succided and false if not 
-    """
-
-    # tmp_file_location
-
-    tfl = '/tmp/' + file_name
-
-    # destination_forlder
-
-    df = '/data/web_static/releases/{}'.format(release_name)
-
-    # to be soft linkd
-
-    tbsl = \
-        '/data/web_static/releases/{}/web_static'.format(release_name)
     try:
-        sudo('mkdir -p /data/web_static/releases/{}'.format(release_name))
-        sudo('tar zxvf {} -C {}'.format(tfl, df))
-        sudo('mkdir -p /data/web_static')
-        sudo('rm -f /data/web_static/current')
-        sudo('ln -sf {} /data/web_static/current'.format(tbsl))
+        file_n = archive_path.split("/")[-1]
+        no_ext = file_n.split(".")[0]
+        path = "/data/web_static/releases/"
+        put(archive_path, '/tmp/')
+        run('mkdir -p {}{}/'.format(path, no_ext))
+        run('tar -xzf /tmp/{} -C {}{}/'.format(file_n, path, no_ext))
+        run('rm /tmp/{}'.format(file_n))
+        run('mv {0}{1}/web_static/* {0}{1}/'.format(path, no_ext))
+        run('rm -rf {}{}/web_static'.format(path, no_ext))
+        run('rm -rf /data/web_static/current')
+        run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
         return True
     except:
         return False
