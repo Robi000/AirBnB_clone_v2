@@ -16,8 +16,6 @@ app = Flask(__name__)
 @app.route('/cities_by_states', strict_slashes=False)
 def cities_by_state():
     """ this will show the databas asked """
-    print(storage.all(State))
-
     x = storage.all(State)
     statex = []
     cityx = []
@@ -25,9 +23,6 @@ def cities_by_state():
     final = []
     for x, y in x.items():
         statex.append([y.to_dict()["id"], y.to_dict()["name"]])
-    print(
-        storage.all(City)
-        ['City.521a55f4-7d82-47d9-b54c-a76916479545'].to_dict())
     # print(storage.all(City))
     for x, y in storage.all(City).items():
         cityx.append(
@@ -44,9 +39,6 @@ def cities_by_state():
                 state_city.append([y[1], y[2]])
                 # meh.remove(y)
         final.append([x[0], x[1], state_city])
-
-    print("------ final --------\n\n")
-    print(final)
 
     return render_template("8-cities_by_states.html", States=final)
 
